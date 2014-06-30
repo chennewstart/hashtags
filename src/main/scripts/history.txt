@@ -1,0 +1,22 @@
+3205  wget http://www.gtlib.gatech.edu/pub/apache/incubator/storm/apache-storm-0.9.2-incubating/apache-storm-0.9.2-incubating.tar.gz
+3206  ls
+3207  tar xzf apache-storm-0.9.2-incubating.tar.gz
+3208  ls
+3209  cd apache-storm-0.9.2-incubating
+3210  ls
+3211  bin/storm dev-zookeeper &
+3212  bin/storm nimbus &
+3213  bin/storm supervisor &
+3214  bin/storm ui &
+3215  bin/storm drpc &
+3216  cd -
+3217  cd ~/incubator-storm/examples/storm-starter
+3218  ls
+3219  storm jar target/storm-starter-0.9.3-incubating-SNAPSHOT-jar-with-dependencies.jar storm.starter.trident.TridentReach
+
+storm dev-zookeeper &
+storm nimbus &
+storm supervisor &
+storm ui &
+storm drpc &
+storm jar target/hashtags-1.0-SNAPSHOT-jar-with-dependencies.jar hashtags.HashtagTopology
