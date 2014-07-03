@@ -1,4 +1,4 @@
 *.pem
 gitpush.sh
 storm-local/*
-sample*.txt
+src/main/resources/sample10.txt
