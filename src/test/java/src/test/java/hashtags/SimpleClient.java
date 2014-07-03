@@ -1,4 +1,4 @@
-package hashtags;
+package src.test.java.hashtags;
 
 import org.apache.thrift7.TException;
 
@@ -6,7 +6,10 @@ import backtype.storm.generated.DRPCExecutionException;
 import backtype.storm.utils.DRPCClient;
 
 /**
- * Hello world!
+ * 
+ * @author Xiaohu Chen
+ * 
+ *         A simple DRPC client for debug
  * 
  */
 public class SimpleClient {

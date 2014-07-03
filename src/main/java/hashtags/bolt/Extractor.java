@@ -6,6 +6,13 @@ import storm.trident.tuple.TridentTuple;
 import backtype.storm.tuple.Values;
 import hashtags.utils.Tweet;
 
+/**
+ * 
+ * @author Xiaohu Chen
+ * 
+ *         Given a tweet, extract its text and hashtags
+ * 
+ */
 public class Extractor extends BaseFunction {
 
 	@Override

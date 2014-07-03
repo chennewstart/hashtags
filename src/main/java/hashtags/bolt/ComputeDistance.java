@@ -15,6 +15,7 @@ import hashtags.utils.Tweet;
 /**
  * Computes the cosine similarity between two tweets and emits the value.
  * 
+ * @author Michael Vogiatzis (michaelvogiatzis@gmail.com)
  */
 public class ComputeDistance implements Function {
 

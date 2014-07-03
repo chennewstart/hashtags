@@ -15,6 +15,13 @@ import storm.trident.state.State;
 import storm.trident.testing.MemoryMapState;
 import storm.trident.tuple.TridentTuple;
 
+/**
+ * 
+ * @author Xiaohu Chen
+ * 
+ * 
+ *
+ */
 public class PosStateQuery implements QueryFunction<State, List<Long>> {
 
 	@Override

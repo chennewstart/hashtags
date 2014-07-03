@@ -19,6 +19,14 @@ import org.json.simple.JSONValue;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+/**
+ * 
+ * @author xiaohu Chen
+ * 
+ *         A simulated tweet spout that read tweets from a large text file in
+ *         JSON format and feeds to the trident topology
+ * 
+ */
 public class TweetSpout implements IBatchSpout {
 	BufferedReader br;
 	int maxBatchSize;

@@ -12,6 +12,13 @@ import storm.trident.state.State;
 import storm.trident.testing.MemoryMapState;
 import storm.trident.tuple.TridentTuple;
 
+/**
+ * 
+ * @author Xiaohu Chen Query dState to get the totoal number of tweets that have
+ *         been seen
+ * 
+ */
+
 public class DStateUpdateQuery implements QueryFunction<State, Long> {
 
 	@Override

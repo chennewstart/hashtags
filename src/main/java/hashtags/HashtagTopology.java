@@ -4,22 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import backtype.storm.Config;
-import backtype.storm.LocalCluster;
 import backtype.storm.LocalDRPC;
 import backtype.storm.StormSubmitter;
 import backtype.storm.generated.StormTopology;
 import backtype.storm.tuple.Fields;
-import backtype.storm.tuple.Values;
-import storm.trident.Stream;
 import storm.trident.TridentState;
 import storm.trident.TridentTopology;
-import storm.trident.operation.BaseFunction;
-import storm.trident.operation.TridentCollector;
-import storm.trident.operation.builtin.Count;
-import storm.trident.operation.builtin.Debug;
-import storm.trident.operation.builtin.Sum;
 import storm.trident.testing.MemoryMapState;
-import storm.trident.tuple.TridentTuple;
 import hashtags.bolt.ComputeDistance;
 import hashtags.bolt.CountAggKeep;
 import hashtags.bolt.ExpandList;
@@ -29,7 +20,6 @@ import hashtags.bolt.FilterLow;
 import hashtags.bolt.FirstNAggregator;
 import hashtags.bolt.Preprocessor;
 import hashtags.bolt.Tokenizer;
-import hashtags.bolt.VectorBuilder;
 import hashtags.bolt.Vectorizer;
 import hashtags.bolt.WrapToTweet;
 import hashtags.spout.TweetSpout;
@@ -44,6 +34,19 @@ import hashtags.state.PosStateFactory;
 import hashtags.state.PosStateQuery;
 import hashtags.state.PosStateUpdateQuery;
 
+/***
+ * 
+ * @author Xiaohu Chen
+ * 
+ *         Real-time #hashtag suggestions for tweets
+ * 
+ *         Two topology running, with one trident topology turning tweets that
+ *         have hashtags to TF-IDF vector and then putting them into different
+ *         buckets using Location Sensitive Hashing (LSH), and another DRPC
+ *         topology receive new tweets that do not have hashtags and make
+ *         hashtags suggestions based on the similar tweets in the same buckets
+ * 
+ */
 
 public class HashtagTopology {
 
@@ -59,9 +62,8 @@ public class HashtagTopology {
 		TridentState dfState = topology
 				.newStaticState(new MemoryMapState.Factory());
 		TridentState posState = topology.newStaticState(new PosStateFactory());
-		Stream docstream = topology
-				.newStream("spout1", spout)
-				.parallelismHint(1)
+		topology.newStream("spout1", spout)
+				.parallelismHint(12)
 				.shuffle()
 				// .each(new Fields("tweet_id", "text", "hashtags"), new
 				// Debug());
@@ -70,7 +72,7 @@ public class HashtagTopology {
 				// .project(new Fields("tweet_id", "text", "hashtags"))
 				.each(new Fields("cleantext"), new Tokenizer(),
 						new Fields("words"))
-				.parallelismHint(4)
+				.parallelismHint(12)
 				.stateQuery(dState, new Fields("text"),
 						new DStateUpdateQuery(), new Fields("d"))
 				// .each(new Fields("tweet_id", "text", "hashtags", "words",
@@ -97,7 +99,7 @@ public class HashtagTopology {
 		// new Debug());
 
 		topology.newDRPCStream("tweets", drpc)
-				.parallelismHint(4)
+				.parallelismHint(12)
 				.each(new Fields("args"), new Preprocessor(),
 						new Fields("text"))
 				.each(new Fields("text"), new FakeID(), new Fields("tweet_id"))
@@ -166,22 +168,6 @@ public class HashtagTopology {
 				.each(new Fields("coltweet_obj"), new Extractor(),
 						new Fields("tweet_text", "tweet_hashtags"))
 				.project(new Fields("tweet_text", "tweet_hashtags", "cosSim"));
-		// .each(new Fields("coltweet_obj"), new Extractor(),
-		// new Fields("tweet_text", "tweet_hashtags"))
-		// .project(new Fields("tweet_text", "tweet_hashtags"));
-
-		// .each(new Fields("sentence"), new Split(), new Fields("word"))
-		// .groupBy(new Fields("word"))
-		// .persistentAggregate(new MemoryMapState.Factory(), new Count(),
-		// new Fields("count")).parallelismHint(16);
-		//
-		// topology.newDRPCStream("words", drpc)
-		// .each(new Fields("args"), new Split(), new Fields("word"))
-		// .groupBy(new Fields("word"))
-		// .stateQuery(wordCounts, new Fields("word"), new MapGet(),
-		// new Fields("count"))
-		// .each(new Fields("count"), new FilterNull())
-		// .aggregate(new Fields("count"), new Sum(), new Fields("sum"));
 		return topology.build();
 	}
 

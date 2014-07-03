@@ -17,6 +17,8 @@ import backtype.storm.tuple.Values;
 /**
  * Processes the tweet text to remove whitespaces, links and replies.
  * 
+ * @author Michael Vogiatzis (michaelvogiatzis@gmail.com)
+ * 
  */
 public class Preprocessor extends BaseFunction {
 

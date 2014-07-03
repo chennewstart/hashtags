@@ -7,7 +7,9 @@ import java.util.Map;
 import storm.trident.state.State;
 
 /**
- * Holds a list of buckets and a list of random vectors.
+ * @author Xiaohu Chen
+ * 
+ * State that records the postion of words in the vector
  * 
  */
 public class PosDB implements State, Serializable {

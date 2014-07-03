@@ -15,6 +15,13 @@ import storm.trident.state.State;
 import storm.trident.testing.MemoryMapState;
 import storm.trident.tuple.TridentTuple;
 
+/**
+ * 
+ * @author Xiaohu Chen
+ * 
+ *         Query dfState to get the term frequency
+ * 
+ */
 public class DFStateUpdateQuery implements QueryFunction<State, List<Long>> {
 
 	@Override

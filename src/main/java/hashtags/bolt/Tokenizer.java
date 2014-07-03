@@ -13,6 +13,11 @@ import storm.trident.operation.TridentCollector;
 import storm.trident.operation.TridentOperationContext;
 import storm.trident.tuple.TridentTuple;
 
+/**
+ * 
+ * @author Michael Vogiatzis (michaelvogiatzis@gmail.com)
+ *
+ */
 public class Tokenizer implements Function {
 	private final String regex = "[^A-Za-z0-9_£$%<>]";
 	private TweetBuilder tb;

@@ -1,4 +1,4 @@
-package hashtags;
+package src.test.java.hashtags;
 
 import java.util.ArrayList;
 import java.util.List;

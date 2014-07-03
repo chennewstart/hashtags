@@ -1,5 +1,13 @@
 package hashtags;
 
+/***
+ * 
+ * @author xiaohu
+ * 
+ * Project Configuration 
+ *
+ */
+
 public class ProjectConf {
 	public static final String REDIS_HOST_KEY = "redisHost";
 	public static final String REDIS_PORT_KEY = "redisPort";

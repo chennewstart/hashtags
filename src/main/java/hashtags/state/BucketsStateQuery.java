@@ -11,10 +11,11 @@ import storm.trident.state.BaseQueryFunction;
 import storm.trident.tuple.TridentTuple;
 
 /**
- * Holds the state for a number of buckets. Each bucket will return near
- * neighbours that their hash collide with the tweet in question.
  * 
- * @author Michael Vogiatzis (michaelvogiatzis@gmail.com)
+ * @author Xiaohu Chen
+ * 
+ *         Query bucket state to find similar tweets but doesn't update the
+ *         bucket state
  * 
  */
 public class BucketsStateQuery extends

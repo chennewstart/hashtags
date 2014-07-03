@@ -5,6 +5,14 @@ import storm.trident.operation.BaseFunction;
 import storm.trident.operation.TridentCollector;
 import storm.trident.tuple.TridentTuple;
 
+/**
+ * 
+ * @author Xiaohu Chen
+ * 
+ *         In DRPC, if a tweet doesn't have a tweet ID, then this function
+ *         simply hash the text of the tweets and generate a fake tweet ID.
+ * 
+ */
 public class FakeID extends BaseFunction {
 
 	@Override

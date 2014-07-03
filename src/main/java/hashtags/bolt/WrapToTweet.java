@@ -7,6 +7,12 @@ import backtype.storm.tuple.Values;
 import hashtags.utils.SparseVector;
 import hashtags.utils.Tweet;
 
+/**
+ * 
+ * @author xiaohu
+ * 
+ *         Wrap tweetid, text, vector into a Tweet object
+ */
 public class WrapToTweet extends BaseFunction {
 
 	@Override

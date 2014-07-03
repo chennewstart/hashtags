@@ -8,6 +8,10 @@ import backtype.storm.task.IMetricsContext;
 import storm.trident.state.State;
 import storm.trident.state.StateFactory;
 
+/**
+ * @author Michael Vogiatzis (michaelvogiatzis@gmail.com)
+ * 
+ */
 public class BucketsStateFactory implements StateFactory {
 
 	int partialL, k, queueSize;

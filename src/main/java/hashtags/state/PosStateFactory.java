@@ -1,16 +1,20 @@
 package hashtags.state;
 
-import hashtags.ProjectConf;
-
 import java.util.Map;
 
 import backtype.storm.task.IMetricsContext;
 import storm.trident.state.State;
 import storm.trident.state.StateFactory;
 
-public class PosStateFactory implements StateFactory {
+/**
+ * 
+ * @author Xiaohu Chen
+ * 
+ * posState Factory
+ *
+ */
 
-	int partialL, k, queueSize;
+public class PosStateFactory implements StateFactory {
 
 	public PosStateFactory() {
 	}

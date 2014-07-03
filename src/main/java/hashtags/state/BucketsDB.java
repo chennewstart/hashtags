@@ -16,6 +16,8 @@ import hashtags.utils.Tweet;
 /**
  * Holds a list of buckets and a list of random vectors.
  * 
+ * @author Michael Vogiatzis (michaelvogiatzis@gmail.com)
+ * 
  */
 public class BucketsDB implements State, Serializable {
 

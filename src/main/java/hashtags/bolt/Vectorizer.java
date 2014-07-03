@@ -13,14 +13,15 @@ import storm.trident.tuple.TridentTuple;
 import backtype.storm.tuple.Values;
 import cern.colt.list.DoubleArrayList;
 import cern.colt.list.IntArrayList;
-import hashtags.ProjectConf;
 import hashtags.utils.Tweet;
-import hashtags.utils.TweetBuilder;
 import hashtags.utils.SparseVector;
 
 /**
- * This is responsible for converting the tweet object into a sparse vector
- * based on previously seen terms.
+ * 
+ * @author Xiaohu Chen
+ * 
+ *         This is responsible for converting the tweet object into a sparse
+ *         vector based on previously seen terms.
  * 
  */
 public class Vectorizer implements Function {

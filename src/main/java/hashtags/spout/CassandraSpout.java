@@ -23,6 +23,13 @@ import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.Host;
 import com.datastax.driver.core.Metadata;
 
+/**
+ * 
+ * @author Xiaohu Chen
+ * 
+ *         A Cassandra bolt (not working)
+ * 
+ */
 public class CassandraSpout implements IBatchSpout {
 	private Cluster cluster;
 	BufferedReader br;

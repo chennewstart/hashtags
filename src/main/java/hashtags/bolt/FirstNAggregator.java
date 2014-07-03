@@ -10,6 +10,8 @@ import storm.trident.tuple.TridentTuple;
 /**
  * Sorts the incoming tuples on the sort field.
  * 
+ * @author Michael Vogiatzis (michaelvogiatzis@gmail.com)
+ * 
  */
 public class FirstNAggregator extends BaseAggregator<PriorityQueue> {
 

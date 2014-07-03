@@ -8,6 +8,11 @@ import storm.trident.tuple.TridentTuple;
 import backtype.storm.tuple.Values;
 import hashtags.utils.Tweet;
 
+/**
+ * 
+ * @author Michael Vogiatzis (michaelvogiatzis@gmail.com)
+ *
+ */
 public class ExpandList extends BaseFunction {
 
 	@Override
