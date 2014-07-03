@@ -8,6 +8,11 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 
+/**
+ * 
+ * @author Michael Vogiatzis (michaelvogiatzis@gmail.com)
+ *
+ */
 public class TweetBuilder implements Serializable {
 
 	private HashMap<String, String> oovWords;

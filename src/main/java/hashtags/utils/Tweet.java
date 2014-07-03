@@ -2,6 +2,13 @@ package hashtags.utils;
 
 import java.io.Serializable;
 
+/**
+ * 
+ * @author Xiaohu Chen
+ * 
+ *         Tweet class that records tweet id, text, vector, hashtags.
+ * 
+ */
 public class Tweet implements Serializable {
 	private long ID;
 	private String body;
