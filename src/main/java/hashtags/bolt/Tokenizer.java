@@ -16,7 +16,7 @@ import storm.trident.tuple.TridentTuple;
 public class Tokenizer implements Function {
 	private final String regex = "[^A-Za-z0-9_£$%<>]";
 	private TweetBuilder tb;
-	
+
 	@Override
 	public void prepare(Map arg0, TridentOperationContext arg1) {
 		tb = new TweetBuilder(ProjectConf.PATH_TO_OOV_FILE);
@@ -28,10 +28,8 @@ public class Tokenizer implements Function {
 		String words[] = tweetBody.toLowerCase().split(regex);
 		String temp;
 		List<String> wordlist = new ArrayList<String>();
-		for(String word : words)
-		{
-			if(word.equals(""))
-			{
+		for (String word : words) {
+			if (word.equals("")) {
 				continue;
 			}
 			temp = tb.getOOVNormalWord(word);
@@ -40,12 +38,12 @@ public class Tokenizer implements Function {
 			}
 			wordlist.add(word);
 		}
-		
+
 		collector.emit(new Values(wordlist));
 	}
-	
+
 	@Override
 	public void cleanup() {
-		
+
 	}
 }

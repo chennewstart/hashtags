@@ -54,18 +54,19 @@ public class Tweet implements Serializable {
 	public void setHashtags(String hashtags) {
 		this.hashtags = hashtags;
 	}
-	
-	@Override public String toString() {
-	    StringBuilder result = new StringBuilder();
-	    String SEPARATOR = "<--->";
 
-	    result.append(this.getClass().getName() + " {");
-	    result.append(ID + SEPARATOR);
-	    result.append(body + SEPARATOR);
-	    result.append(hashtags + SEPARATOR );
-//	    result.append(vector);
-	    result.append("}");
+	@Override
+	public String toString() {
+		StringBuilder result = new StringBuilder();
+		String SEPARATOR = "<--->";
 
-	    return result.toString();
-	  }
+		result.append(this.getClass().getName() + " {");
+		result.append(ID + SEPARATOR);
+		result.append(body + SEPARATOR);
+		result.append(hashtags + SEPARATOR);
+		// result.append(vector);
+		result.append("}");
+
+		return result.toString();
+	}
 }

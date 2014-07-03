@@ -45,10 +45,8 @@ public class PosStateUpdateQuery implements QueryFunction<State, List<Long>> {
 			if (p == null) {
 				p = ((PosDB) posState).addPos(word);
 				posMap.put(word, -p);
-			}
-			else
-			{
-				posMap.put(word, p);	
+			} else {
+				posMap.put(word, p);
 			}
 		}
 

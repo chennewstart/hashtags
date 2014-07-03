@@ -22,9 +22,9 @@ public class BucketsStateQuery extends
 
 	@Override
 	public List<ArrayList<Tweet>> batchRetrieve(BucketsDB state,
-			List<TridentTuple> args) {
+			List<TridentTuple> tuples) {
 		List<ArrayList<Tweet>> tweets = new ArrayList<ArrayList<Tweet>>();
-		for (TridentTuple tuple : args) {
+		for (TridentTuple tuple : tuples) {
 			SparseVector vector = (SparseVector) tuple.getValue(0);
 			ArrayList<Tweet> possibleNeighbors = state
 					.getPossibleNeighbors(vector);

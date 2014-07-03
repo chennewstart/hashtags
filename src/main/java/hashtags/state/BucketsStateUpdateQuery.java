@@ -22,9 +22,9 @@ public class BucketsStateUpdateQuery extends
 
 	@Override
 	public List<ArrayList<Tweet>> batchRetrieve(BucketsDB state,
-			List<TridentTuple> args) {
+			List<TridentTuple> tuples) {
 		List<ArrayList<Tweet>> tweets = new ArrayList<ArrayList<Tweet>>();
-		for (TridentTuple tuple : args) {
+		for (TridentTuple tuple : tuples) {
 			Tweet tw = (Tweet) tuple.getValue(0);
 			int byNumberOfDims = tuple.getInteger(1); // number of dimensions to
 														// upgrade

@@ -44,6 +44,7 @@ import hashtags.state.PosStateFactory;
 import hashtags.state.PosStateQuery;
 import hashtags.state.PosStateUpdateQuery;
 
+
 public class HashtagTopology {
 
 	public static StormTopology buildTopology(LocalDRPC drpc) {
@@ -60,7 +61,8 @@ public class HashtagTopology {
 		TridentState posState = topology.newStaticState(new PosStateFactory());
 		Stream docstream = topology
 				.newStream("spout1", spout)
-				.parallelismHint(4)
+				.parallelismHint(1)
+				.shuffle()
 				// .each(new Fields("tweet_id", "text", "hashtags"), new
 				// Debug());
 				.each(new Fields("text"), new Preprocessor(),
@@ -68,6 +70,7 @@ public class HashtagTopology {
 				// .project(new Fields("tweet_id", "text", "hashtags"))
 				.each(new Fields("cleantext"), new Tokenizer(),
 						new Fields("words"))
+				.parallelismHint(4)
 				.stateQuery(dState, new Fields("text"),
 						new DStateUpdateQuery(), new Fields("d"))
 				// .each(new Fields("tweet_id", "text", "hashtags", "words",
@@ -98,7 +101,7 @@ public class HashtagTopology {
 				.each(new Fields("args"), new Preprocessor(),
 						new Fields("text"))
 				.each(new Fields("text"), new FakeID(), new Fields("tweet_id"))
-				// .each(new Fields("text"), new Debug());
+				// .each(new Fields("text"), new Debug())
 				.each(new Fields("text"), new Tokenizer(), new Fields("words"))
 				// .each(new Fields("text", "words"), new Debug());
 				.stateQuery(dState, new Fields("text"), new DStateQuery(),
@@ -160,7 +163,8 @@ public class HashtagTopology {
 						new Fields("coltweet_id", "tweet_obj", "coltweet_obj",
 								"cosSim"))
 				.each(new Fields("cosSim"), new FilterLow())
-				.each(new Fields("coltweet_obj"), new Extractor(), new Fields("tweet_text", "tweet_hashtags"))
+				.each(new Fields("coltweet_obj"), new Extractor(),
+						new Fields("tweet_text", "tweet_hashtags"))
 				.project(new Fields("tweet_text", "tweet_hashtags", "cosSim"));
 		// .each(new Fields("coltweet_obj"), new Extractor(),
 		// new Fields("tweet_text", "tweet_hashtags"))
@@ -184,23 +188,23 @@ public class HashtagTopology {
 	public static void main(String[] args) throws Exception {
 
 		Config conf = new Config();
-    	List<String> servers = new ArrayList<String>();
-    	servers.add("localhost");
-    	conf.put("drpc.servers", servers);
+		List<String> servers = new ArrayList<String>();
+		// servers.add("localhost");
+		// conf.put("drpc.servers", servers);
 
-    	StormSubmitter.submitTopology("tweets", conf, buildTopology(null));
+		StormSubmitter.submitTopology("tweets", conf, buildTopology(null));
 
-//		Config conf = new Config();
-//		conf.setMaxSpoutPending(20);
-//		if (args.length == 0) {
-//		LocalDRPC drpc = new LocalDRPC();
-//		LocalCluster cluster = new LocalCluster();
-//		cluster.submitTopology("hashtags", conf, buildTopology(drpc));
-//		for (int i = 0; i < 1000; i++) {
-//		 		Thread.sleep(100000);
-//		 		System.out.println("DRPC RESULT: "
-//		 				+ drpc.execute("tweets", "Stick to the plan OPM"));
-//		 	}
-//		 }
+		// Config conf = new Config();
+		// conf.setMaxSpoutPending(200);
+		// if (args.length == 0) {
+		// LocalDRPC drpc = new LocalDRPC();
+		// LocalCluster cluster = new LocalCluster();
+		// cluster.submitTopology("hashtags", conf, buildTopology(drpc));
+		// for (int i = 0; i < 1000; i++) {
+		// Thread.sleep(100);
+		// System.out.println("DRPC RESULT: "
+		// + drpc.execute("tweets", "Stick to the plan OPM"));
+		// }
+		// }
 	}
 }

@@ -55,7 +55,7 @@ public class Tools implements Serializable {
 
 		// Escape HTML
 		tweet = tweet.replaceAll("&amp;", "&");
-		
+
 		// Remove #hashtag
 		tweet = tweet.replaceAll("#", "");
 		// Remove RT

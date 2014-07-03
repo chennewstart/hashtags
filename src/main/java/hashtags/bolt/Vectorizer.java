@@ -47,9 +47,9 @@ public class Vectorizer implements Function {
 			Long pos[] = poslist.toArray(new Long[poslist.size()]);
 
 			// if (words.length == 0) {
-			// 	tweetBody = "ONLYLINKSANDMENTIONZ";
-			// 	String dummyWord[] = { tweetBody };
-			// 	words = dummyWord;
+			// tweetBody = "ONLYLINKSANDMENTIONZ";
+			// String dummyWord[] = { tweetBody };
+			// words = dummyWord;
 			// }
 			collector.emit(getValues(tweet, words, d, df, pos));
 		} else {
@@ -134,17 +134,14 @@ public class Vectorizer implements Function {
 	private Values getValues(Tweet tweet, String[] words, Long d, Long df[],
 			Long pos[]) {
 		// DEBUG
-		if (words.length != pos.length)
-		{
+		if (words.length != pos.length) {
 			System.err.println("words(" + words.length + "):");
-			for (int i = 0; i < words.length; ++i)
-			{
+			for (int i = 0; i < words.length; ++i) {
 				System.err.println(i + " " + words[i]);
 			}
 
 			System.err.println("pos(" + pos.length + "):");
-			for (int i = 0; i < pos.length; ++i)
-			{
+			for (int i = 0; i < pos.length; ++i) {
 				System.err.println(i + " " + pos[i]);
 			}
 		}
@@ -173,8 +170,7 @@ public class Vectorizer implements Function {
 
 		Set<String> processed = new HashSet<String>();
 		SparseVector vector = new SparseVector(size + 1);
-		
-		
+
 		for (int i = 0; i < words.length; ++i) {
 			String word = words[i];
 			if (processed.contains(word)) {

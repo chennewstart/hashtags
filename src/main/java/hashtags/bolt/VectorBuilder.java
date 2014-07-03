@@ -52,9 +52,7 @@ public class VectorBuilder implements Function {
 				String dummyWord[] = { tweetBody };
 				collector.emit(getValues(tweet, dummyWord));
 			}
-		}
-		else
-		{
+		} else {
 			Tweet tweet = new Tweet(0, (String) tuple.getValue(0));
 			String tweetBody = tweet.getBody();
 			String words[] = tweetBody.toLowerCase().split(regex);
@@ -84,7 +82,7 @@ public class VectorBuilder implements Function {
 		}
 		return vector;
 	}
-	
+
 	private Values getUnlabeledValues(Tweet tweet, String[] words) {
 
 		HashMap<String, Integer> tfMap = new HashMap<String, Integer>();
@@ -94,7 +92,7 @@ public class VectorBuilder implements Function {
 		Integer count;
 
 		for (String w : words) {
-			
+
 			Integer countInOtherDocs = uniqWords.get(w);
 			if (countInOtherDocs == null) {
 				continue;
@@ -104,13 +102,12 @@ public class VectorBuilder implements Function {
 			if (count == null) {
 				// Word first time in this document
 				tfMap.put(w, 1);
-			
+
 			} else {
 				// word has been seen in this document before
 				tfMap.put(w, count + 1);
 			}
 		}
-
 
 		SparseVector vector = new SparseVector(uniqWords.size());
 
@@ -155,7 +152,6 @@ public class VectorBuilder implements Function {
 		Integer count;
 		int uniqWordsIncrease;
 		for (String w : words) {
-			
 
 			count = tfMap.get(w);
 

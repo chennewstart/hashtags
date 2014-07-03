@@ -19,14 +19,14 @@ import storm.trident.tuple.TridentTuple;
  * Not only Count aggregator but also keeps the input Fields.
  * 
  * @author Michael Vogiatzis (michaelvogiatzis@gmail.com)
- *
+ * 
  */
-public class CountAggKeep implements Aggregator<CountAggKeep.State>{
+public class CountAggKeep implements Aggregator<CountAggKeep.State> {
 
 	List<String> keepFields = new ArrayList<String>();
-	
-	static class State{
-		long count=0;
+
+	static class State {
+		long count = 0;
 		Map<String, Object> fields = new HashMap<String, Object>();
 	}
 
@@ -59,7 +59,7 @@ public class CountAggKeep implements Aggregator<CountAggKeep.State>{
 		values.add(val.count);
 		for (String field : keepFields)
 			values.add(val.fields.get(field));
-		
+
 		collector.emit(values);
 	}
 }

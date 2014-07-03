@@ -10,7 +10,7 @@ public class Extractor extends BaseFunction {
 
 	@Override
 	public void execute(TridentTuple tuple, TridentCollector collector) {
-		Tweet tweet = (Tweet)tuple.getValue(0);
+		Tweet tweet = (Tweet) tuple.getValue(0);
 		collector.emit(new Values(tweet.getBody(), tweet.getHashtags()));
 	}
 
