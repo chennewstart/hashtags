@@ -37,11 +37,11 @@ The Location Sensitive Hashing (LSH) approach is directly influenced by [Michael
 The project is a Maven project and developed in Eclipse.
 
 	New Maven project : mvn archetype:generate -DgroupId=hastags -DartifactId=hashtags
-	Download the package in pom.xml:	mvn eclipse:clean eclipse:eclipse
+	Download the package in pom.xml for eclipse:	mvn eclipse:clean eclipse:eclipse
 	Package to a jar (with dependencies): mvn clean package
 	See pom.xml for all the dependencies and configuration.
 
-To Test in local mode, run the following:
+To test in local mode, run the following:
 	
 	storm dev-zookeeper &
 	storm nimbus &
