@@ -1,8 +1,5 @@
 package hashtags;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import backtype.storm.Config;
 import backtype.storm.LocalDRPC;
 import backtype.storm.StormSubmitter;
@@ -11,6 +8,7 @@ import backtype.storm.tuple.Fields;
 import storm.trident.TridentState;
 import storm.trident.TridentTopology;
 import storm.trident.testing.MemoryMapState;
+
 import hashtags.bolt.ComputeDistance;
 import hashtags.bolt.CountAggKeep;
 import hashtags.bolt.ExpandList;
@@ -119,8 +117,8 @@ public class HashtagTopology {
 				.each(new Fields("text", "words", "d", "df", "pos"),
 						new Vectorizer(), new Fields("vector"))
 				// .project(new Fields("tweet_obj", "uniqWordsIncrease"))
-				// // .each(new Fields("tweet_obj", "uniqWordsIncrease"), new
-				// // Debug());
+				// .each(new Fields("tweet_obj", "uniqWordsIncrease"), new
+				// Debug());
 				.broadcast()
 				.stateQuery(bucketsDB, new Fields("vector"),
 						new BucketsStateQuery(),
@@ -170,7 +168,7 @@ public class HashtagTopology {
 	public static void main(String[] args) throws Exception {
 
 		Config conf = new Config();
-		List<String> servers = new ArrayList<String>();
+		// List<String> servers = new ArrayList<String>();
 		// servers.add("localhost");
 		// conf.put("drpc.servers", servers);
 
