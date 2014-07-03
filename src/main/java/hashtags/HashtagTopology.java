@@ -153,15 +153,11 @@ public class HashtagTopology {
 				// Debug());
 				.shuffle()
 				.groupBy(new Fields("tweet_id"))
-				// find closest neighbor
+				// find ranked closest neighbor
 				.aggregate(
 						new Fields("coltweet_id", "tweet_obj", "coltweet_obj",
 								"cosSim"),
-						new FirstNAggregator(ProjectConf.L, "cosSim", true), // give
-																				// only
-						// the
-						// closest
-						// neighbor
+						new FirstNAggregator(ProjectConf.L, "cosSim", true),
 						new Fields("coltweet_id", "tweet_obj", "coltweet_obj",
 								"cosSim"))
 				.each(new Fields("cosSim"), new FilterLow())

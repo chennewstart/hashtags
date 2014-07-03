@@ -2,7 +2,7 @@ package hashtags;
 
 /***
  * 
- * @author xiaohu
+ * @author Xiaohu Chen
  * 
  * Project Configuration 
  *
