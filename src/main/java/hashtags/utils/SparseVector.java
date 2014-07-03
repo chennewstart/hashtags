@@ -3,6 +3,11 @@ package hashtags.utils;
 import cern.colt.list.DoubleArrayList;
 import cern.colt.matrix.impl.SparseDoubleMatrix1D;
 
+/**
+ * 
+ * @author Michael Vogiatzis (michaelvogiatzis@gmail.com)
+ *
+ */
 public class SparseVector extends SparseDoubleMatrix1D {
 
 	public SparseVector(int size) {

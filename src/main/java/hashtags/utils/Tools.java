@@ -14,7 +14,9 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 /**
- * Utils class.
+ * @author Michael Vogiatzis (michaelvogiatzis@gmail.com)
+ * 
+ *         Utils class.
  */
 public class Tools implements Serializable {
 
