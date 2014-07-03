@@ -2,10 +2,14 @@ package hashtags.utils;
 
 import java.io.Serializable;
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
+/**
+ * 
+ * @author Michael Vogiatzis (michaelvogiatzis@gmail.com)
+ *
+ */
 public class Bucket implements Serializable {
 
 	private int queueSize;

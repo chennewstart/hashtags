@@ -19,8 +19,8 @@ import storm.trident.tuple.TridentTuple;
  * 
  * @author Xiaohu Chen
  * 
+ *         Query posState to get the position of the words in vector, but doesn't update state
  * 
- *
  */
 public class PosStateQuery implements QueryFunction<State, List<Long>> {
 

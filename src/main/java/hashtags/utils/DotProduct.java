@@ -1,7 +1,7 @@
 package hashtags.utils;
 
 /**
- *
+ * @author Michael Vogiatzis (michaelvogiatzis@gmail.com)
  */
 public class DotProduct {
 

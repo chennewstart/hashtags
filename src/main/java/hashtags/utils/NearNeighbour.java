@@ -8,7 +8,7 @@ package hashtags.utils;
 import java.io.Serializable;
 
 /**
- *
+ * @author Michael Vogiatzis (michaelvogiatzis@gmail.com)
  */
 public class NearNeighbour implements Serializable {
 	private double cosineSim;

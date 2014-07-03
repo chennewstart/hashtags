@@ -12,8 +12,16 @@ import storm.trident.operation.TridentCollector;
 import storm.trident.operation.TridentOperationContext;
 import storm.trident.state.QueryFunction;
 import storm.trident.state.State;
-import storm.trident.testing.MemoryMapState;
 import storm.trident.tuple.TridentTuple;
+
+/**
+ * 
+ * @author Xiaohu Chen
+ * 
+ *         Query posState to get the position of the words in vector
+ * 
+ */
+
 
 public class PosStateUpdateQuery implements QueryFunction<State, List<Long>> {
 
