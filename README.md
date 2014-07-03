@@ -42,6 +42,7 @@ The project is a Maven project and developed in Eclipse.
 	See pom.xml for all the dependencies and configuration.
 
 To Test in local mode, run the following:
+	
 	storm dev-zookeeper &
 	storm nimbus &
 	storm supervisor &
