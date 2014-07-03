@@ -4,3 +4,4 @@ storm-local/*
 src/main/resources/sample10.txt
 src/main/resources/sample100.txt
 src/main/resources/sample.txt
+src/main/resources/keys.cfg
