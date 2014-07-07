@@ -1,0 +1,9 @@
+export PIG_HOME=/home/ubuntu/xiaohu/pig-0.13.0
+scp -i insightdatastax.pem tf-idf.pig ubuntu@ec2-54-187-166-118.us-west-2.compute.amazonaws.com:/home/ubuntu/xiaohu/apache-cassandra-2.0.9-src/examples/pig
+
+
+# cassandra with pig
+# https://github.com/jeromatron/pygmalion/wiki/Getting-Started
+wget http://apache.claz.org/cassandra/2.0.9/apache-cassandra-2.0.9-src.tar.gz
+tar apache-cassandra-2.0.9-src.tar.gz
+cd apache-cassandra-2.0.9-src

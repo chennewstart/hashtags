@@ -1,0 +1,22 @@
+{% extends "layout/base.html" %}
+
+{% block content %}
+	<div id="wrap">
+		<div class="container">
+			<div class="starter-template">
+				<center>
+					<form action="/drpc" method="post">
+						<input type="text" name="text" id="searchbox" size = 80 style="border:2px solid #456879; border-radius:10px;height: 40px;width: 460px;">
+						<br>
+						<br>
+						<input type="submit" value="Suggest!" class="btn btn-default">
+					</form>
+				</center>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block footer %}
+	{% include "include/footer.html" %}
+{% endblock %}

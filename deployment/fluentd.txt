@@ -1,0 +1,70 @@
+FLUENTD -> HDFS configuration from zero to a working pipe in 30 minutes
+
+Installing fluentd on "fresh" ubuntu server, use user ubuntu
+
+$ curl -L http://toolbelt.treasuredata.com/sh/install-ubuntu-precise.sh | sh
+$ /etc/init.d/td-agent status
+
+Let's test if it's running
+
+$ curl -X POST -d 'json={"json":"message"}' http://localhost:8888/debug.test
+$ tail /var/log/td-agent/td-agent.log
+
+it is, great success! Now lets configure HDFS sink:
+
+$ vim /etc/td-agent/td-agent.conf
+
+add this at the end of file:
+<match hdfs.*.*>
+  type webhdfs
+  host ec2-X-X-X-X.us-west-1.compute.amazonaws.com // here you put your NN
+  port 50070
+  path /tmp/%Y%m%d_%H/access.log.${hostname} // here you put whatever target path, take care of access rights
+  flush_interval 10s
+</match>
+
+$ sudo /etc/init.d/td-agent restart
+
+Now go to your hadoop Name Node (ssh) and edit hdfs config
+
+$ sudo vim /etc/hadoop/conf.cloudera.hdfs/hdfs-site.xml
+
+add lines 
+<property>
+  <name>dfs.webhdfs.enabled</name>
+  <value>true</value>
+</property>
+
+<property>
+  <name>dfs.support.append</name>
+  <value>true</value>
+</property>
+
+<property>
+  <name>dfs.support.broken.append</name>
+  <value>true</value>
+</property>
+
+in Name Node web console:
+Edit your claudera password (from admin/admin to sth uniqu) and
+Restart HDFS from claudera manager- this will take some time, but webhdfs is enabled!
+Or do the same from command line, how?
+
+Let's go back to fluentd node:
+Let's now write a couple of packets to queue
+$ curl -X POST -d 'json={"action":"login","user":2}' http://localhost:8888/hdfs.access.test
+$ curl -X POST -d 'json={"action":"login","user":2}' http://localhost:8888/hdfs.access.test
+$ curl -X POST -d 'json={"action":"login","user":2}' http://localhost:8888/hdfs.access.test
+$ curl -X POST -d 'json={"action":"login","user":2}' http://localhost:8888/hdfs.access.test
+$ curl -X POST -d 'json={"action":"login","user":2}' http://localhost:8888/hdfs.access.test
+
+
+... and back on hadoop:
+hdfs dfs -cat /tmp/20140619_00/access.log.ip-172-31-13-228
+2014-06-19T07:56:53Z	hdfs.access.test	{"action":"login","user":2}
+2014-06-19T07:56:58Z	hdfs.access.test	{"action":"login","user":2}
+2014-06-19T07:57:02Z	hdfs.access.test	{"action":"login","user":2}
+2014-06-19T07:57:21Z	hdfs.access.test	{"action":"login","user":2}
+2014-06-19T07:57:23Z	hdfs.access.test	{"action":"login","user":2}
+
+Great Success!!!! 

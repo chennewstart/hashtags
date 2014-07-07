@@ -1,0 +1,36 @@
+{% extends "layout/base.html" %}
+
+{% block content %}
+	<div id="wrap">
+		<div class="container">
+			<div class="starter-template">
+				<h1>Hashtag Suggestions...</h1>
+				<p class="lead">
+					{{hashtags}}
+				</p>
+				<table>
+					<thead>
+						<tr>
+							<td>cosine similarity</td>
+							<td>tweet</td>
+							<td>hashtags</td>
+						</tr>
+					</thead>
+					<tbody>
+						{% for tweet in tweets %}
+							<tr>
+								<td>{{ tweet['cosine similarity'] | safe }}</td>
+								<td>{{tweet['tweet'] | safe}}</td>
+								<td>{{tweet['hashtags'] | safe}}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block footer %}
+	{% include "include/footer.html" %}
+{% endblock %}

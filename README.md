@@ -26,6 +26,8 @@ The following picture shows the DRPC topology which responds to API request for 
 ##Deploy
 One of the committers of Storm project, Michael G. Noll, provides a detailed description about [Running a Multi-Node Storm Cluster](http://www.michael-noll.com/tutorials/running-multi-node-storm-cluster/). Also from this blog, the is a tool that provides a much eaiser deployment tool [Wirbelsturm](http://www.michael-noll.com/blog/2014/03/17/wirbelsturm-one-click-deploy-storm-kafka-clusters-with-vagrant-puppet/). As deployment through Wirbelsturm to EC2 is still in beta. I take the step by step way. To check the status of the cluster, use `sudo supervisorctl status` and you should see nimbus, supervisor, zookeeper in `RUNNING` status. See `deployment` dir for the nimbus and zookeeper's supervisord.conf.
 
+Worth noting that Storm now uses Netty as messaging backend instead of ZeroMQ, therefore, ZeroMQ and JZMQ setup are no longer neccessary.
+
 ##Demo
 
 

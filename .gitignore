@@ -6,3 +6,4 @@ src/main/resources/sample100.txt
 src/main/resources/sample.txt
 src/main/resources/keys.cfg
 *.class
+servers.txt
