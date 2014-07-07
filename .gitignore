@@ -6,3 +6,5 @@ storm/src/main/resources/keys.cfg
 pig/pig-0.13.0.tar.gz
 *.class
 servers.txt
+webapp/venv/*
+webapp/node_modules/*
