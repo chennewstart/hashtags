@@ -15,11 +15,11 @@ The project is built on top of storm which is a perfect fit for streaming data. 
 Twitter Streaming API is the data source. All the raw tweets are stored into HDFS as historical data. The text and hashtags are feed into Redis which acts as a task queue here. There are two Storm topology running here. One trident topology consumes tweets from Redis and put tweets into different buckets. Another DRPC topology waits for request from API call which can either sent from Tweet Streaming or web interface, and then return hashtags suggestions.
 
 
-The trident topology which works with tweets that alreadly have hashtags are constantly reading tweets from Redis and after cleaning, transforming to TF-IDF vector and LSH, puts the tweets to different buckets. Topology is similar to job in Hadoop Mapreduce. The difference is that topology never ends. The blue ones are stateless functions and red ones are states which are kept undating as new tweets come. Trident is higher level abstraction over Storm Java API and works in a microbatching way. Storm provides falt tolerant as well as scaling.
+The trident topology which works with tweets that already have hashtags are constantly reading tweets from Redis and after cleaning, transforming to TF-IDF vector and LSH, puts the tweets to different buckets. Topology is similar to job in Hadoop Mapreduce. The difference is that topology never ends. The blue ones are stateless functions and red ones are states which are kept updating as new tweets come. Trident is a higher level abstraction over Storm Java API and works in a micro-batch way. Storm provides fault tolerant as well as scaling.
 
 ![alt text](image/trident.png "Storm Trident")
 
-The following picture shows the DRPC topology which responds to API request for hashtag suggestions. As you can see, for a new tweet that does not have hashtags, it first goes through the same process as Trident topology and finally arrives at certain buckets where it can find similar tweets. The only differe here is that DRPC topology only queries state produced by Trident Topology but does not update these states. Then the similar tweets are aggregated together and sorted by theire consine similarity with the new tweet and finally return. 
+The following picture shows the DRPC topology which responds to API request for hashtag suggestions. As you can see, for a new tweet that does not have hashtags, it first goes through the same process as Trident topology and finally arrives at certain buckets where it can find similar tweets. The only difference here is that DRPC topology only queries state produced by Trident Topology but does not update these states. Then the similar tweets are aggregated together and sorted by theire cosine similarity with the new tweet and finally return. 
 
 ![alt text](image/drpc.png "Storm DRPC")
 
@@ -34,7 +34,7 @@ Worth noting that Storm now uses Netty as messaging backend instead of ZeroMQ, t
 ##Credits
 The Location Sensitive Hashing (LSH) approach is directly influenced by [Michael Vogiatzis's work in first story detection](http://micvog.com/2013/09/08/storm-first-story-detection/) which again goes to various research in this field and most notably [this one](http://dl.acm.org/citation.cfm?id=1858020). All the referenced code are attributed with author.
 
-##About
+##Misc
 
 The project is a Maven project and developed in Eclipse.
 
@@ -51,3 +51,14 @@ To test in local mode, run the following:
 	storm ui &
 	storm drpc &
 	storm jar target/hashtags-1.0-SNAPSHOT-jar-with-dependencies.jar hashtags.HashtagTopology
+
+About [Location Sensitive Hashing](http://en.wikipedia.org/wiki/Locality-sensitive_hashing)
+	
+	Location Sensitive Hashing preserves similarity between vectors while hashing them into different buckets. Various methods have been proposed. See the wikipedia link for a list of methods. The approach here is called `Random Projection`. The basic idea is to think of vectors as points in high dimensional space and the probability that any two points can be in the same side for a given random hyperplane. The probability is a proximation with the cosine similarity between these two vectors.
+
+
+
+
+
+
+
