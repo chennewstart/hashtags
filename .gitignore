@@ -5,6 +5,8 @@ storm/src/main/resources/*.txt
 storm/src/main/resources/keys.cfg
 pig/pig-0.13.0.tar.gz
 *.class
+*.pyc
 servers.txt
 webapp/venv/*
 webapp/node_modules/*
+storm/target
