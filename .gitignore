@@ -1,9 +1,8 @@
 *.pem
 gitpush.sh
 storm-local/*
-src/main/resources/sample10.txt
-src/main/resources/sample100.txt
-src/main/resources/sample.txt
-src/main/resources/keys.cfg
+storm/src/main/resources/*.txt
+storm/src/main/resources/keys.cfg
+pig/pig-0.13.0.tar.gz
 *.class
 servers.txt
