@@ -53,8 +53,8 @@ To test in local mode, run the following:
 	storm jar target/hashtags-1.0-SNAPSHOT-jar-with-dependencies.jar hashtags.HashtagTopology
 
 About [Location Sensitive Hashing](http://en.wikipedia.org/wiki/Locality-sensitive_hashing)
-	
-	Location Sensitive Hashing preserves similarity between vectors while hashing them into different buckets. Various methods have been proposed. See the wikipedia link for a list of methods. The approach here is called `Random Projection`. The basic idea is to think of vectors as points in high dimensional space and the probability that any two points can be in the same side for a given random hyperplane. The probability is a proximation with the cosine similarity between these two vectors.
+
+Location Sensitive Hashing preserves similarity between vectors while hashing them into different buckets. Various methods have been proposed. See the wikipedia link for a list of methods. The approach here is called `Random Projection`. The basic idea is to think of vectors as points in high dimensional space and the probability that any two points can be in the same side for a given random hyperplane. The probability is a proximation with the cosine similarity between these two vectors.
 
 
 
