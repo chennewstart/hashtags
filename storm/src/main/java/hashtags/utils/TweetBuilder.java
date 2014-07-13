@@ -11,7 +11,7 @@ import java.util.StringTokenizer;
 /**
  * 
  * @author Michael Vogiatzis (michaelvogiatzis@gmail.com)
- *
+ * 
  */
 public class TweetBuilder implements Serializable {
 
@@ -100,17 +100,29 @@ public class TweetBuilder implements Serializable {
 	private void fillOOVHashMap(String pathToOOVFile) {
 
 		try {
+			// System.err
+			// .println("[Debug][TweetBuilder][fillOOVHashMap]pathToOOVFile:"
+			// + pathToOOVFile);
+			// String testPath = this.getClass().getResource("/").getPath();
+			// System.err.println("[Debug][TweetBuilder][fillOOVHashMap]testPath:"
+			// + testPath);
+
 			BufferedReader br = new BufferedReader(new InputStreamReader(
-					TweetSpout.class.getResourceAsStream(pathToOOVFile)));
+					TweetBuilder.class.getResourceAsStream(pathToOOVFile)));
+			// System.err.println("[Debug][TweetBuilder][fillOOVHashMap]br==null:"
+			// + (br == null));
 			String strLine = "";
 			String[] words = new String[2];
 			while ((strLine = br.readLine()) != null) {
+				// System.err.println("[Debug][TweetBuilder][fillOOVHashMap]strLine:"+
+				// strLine);
 				words = strLine.split("\t");
 				oovWords.put(words[0], words[1]);
 			}
 			br.close();
 		} catch (Exception e) {
-			System.out.println(e);
+			System.err.println("[Debug][TweetBuilder][fillOOVHashMap]" + e);
+			e.printStackTrace();
 		}
 
 	}

@@ -71,8 +71,10 @@ public class TweetSpout implements IBatchSpout {
 					}
 				}
 			} catch (IOException e) {
+				System.err.println("[Debug][TweetSpout][emitBatch]");
 				e.printStackTrace();
 			} catch (ParseException e) {
+				System.err.println("[Debug][TweetSpout][emitBatch]");
 				e.printStackTrace();
 			}
 			this.batches.put(batchId, batch);

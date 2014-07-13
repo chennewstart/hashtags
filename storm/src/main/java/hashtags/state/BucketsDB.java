@@ -28,6 +28,10 @@ public class BucketsDB implements State, Serializable {
 	Random r;
 
 	public BucketsDB(int partialL, int k, int queueSize) {
+		System.err.println("[Debug][BucketsDB]partialL: " + partialL);
+		System.err.println("[Debug][BucketsDB]k: " + k);
+		System.err.println("[Debug][BucketsDB]queueSize: " + queueSize);
+
 		this.partialL = partialL;
 		this.k = k;
 		this.queueSize = queueSize;
@@ -112,53 +116,6 @@ public class BucketsDB implements State, Serializable {
 			{
 				bck.insertIntoBucket(smallHash, tw);
 			}
-
-		}// end of buckets
-
-		return possibleNeighbours;
-	}
-
-	/**
-	 * Iterates over the bucket list and returns all near neighbours that share
-	 * the same hash as the input tweet.
-	 * 
-	 * @param tw
-	 *            The input tweet
-	 * @return A list of colliding tweets out of all buckets.
-	 */
-	public ArrayList<Tweet> getPossibleNeighbors(SparseVector vec) {
-		ArrayList<Tweet> possibleNeighbours = new ArrayList<Tweet>();
-		int rBcktCounter = 0;
-
-		for (Bucket bck : bucketList) {
-			SparseVector sp = vec;
-
-			int smallHash = 0;
-			for (int i = 0; i < k; i++) {
-
-				DenseDoubleMatrix1D randomV = bucketRandVectors
-						.get(rBcktCounter)[i];
-				IntArrayList nonZeroIndeces = new IntArrayList(sp.cardinality());
-				sp.getNonZeros(nonZeroIndeces, null);
-				double dotProductValue = randomV.zDotProduct(sp, 0, sp.size(),
-						nonZeroIndeces);
-				if (dotProductValue >= 0) {
-					smallHash = smallHash | (1 << i);
-				}
-
-			}
-			rBcktCounter++;
-			// its partial possible neighbours because its per bucket colliding
-			// neighbors
-			ArrayList<Tweet> partialPossibleNeighbours = findPossibleNeighbours(
-					smallHash, bck);
-			if (!partialPossibleNeighbours.isEmpty())
-				possibleNeighbours.addAll(partialPossibleNeighbours);
-
-			// insert the tweet into the right bucket. no prob to insert it
-			// since the possible neighbours have
-			// already been stored in possibleNeigh hashmap
-			// bck.insertIntoBucket(smallHash, tw);
 
 		}// end of buckets
 

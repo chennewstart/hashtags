@@ -142,9 +142,9 @@ public class Tools implements Serializable {
 				if (dt.get().getValue() >= 0)
 					hash = hash | (1 << dt.get().getPosition());
 		} catch (InterruptedException ex) {
-			System.out.println(ex);
+			System.err.println("[Debug][Tools][computeIntHash]" + ex);
 		} catch (ExecutionException ex) {
-			System.out.println(ex);
+			System.err.println("[Debug][Tools][computeIntHash]" + ex);
 		}
 
 		return hash;
@@ -169,9 +169,9 @@ public class Tools implements Serializable {
 					sum += Math.pow(2, future.get().getPosition());
 				}
 			} catch (InterruptedException ex) {
-				System.out.println(ex);
+				System.out.println("[Debug][Tools][computeIntHash]" + ex);
 			} catch (ExecutionException ex) {
-				System.out.println(ex);
+				System.out.println("[Debug][Tools][computeIntHash]" + ex);
 			}
 		}
 		return sum;

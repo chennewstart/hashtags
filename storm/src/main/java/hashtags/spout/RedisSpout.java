@@ -72,6 +72,7 @@ public class RedisSpout implements IBatchSpout {
 					}
 				}
 			} catch (ParseException e) {
+				System.err.println("[Debug][RedisSpout][emitBatch]");
 				e.printStackTrace();
 			}
 			this.batches.put(batchId, batch);

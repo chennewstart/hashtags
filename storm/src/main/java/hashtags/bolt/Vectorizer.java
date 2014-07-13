@@ -39,7 +39,6 @@ public class Vectorizer implements Function {
 	@Override
 	public void execute(TridentTuple tuple, TridentCollector collector) {
 		// new Fields("tweet_id", "text", "words", "hashtags")
-
 		String tweet_id = tuple.getString(0);
 		String text = tuple.getString(1);
 		Tweet tweet = new Tweet(tweet_id, text);
@@ -119,66 +118,6 @@ public class Vectorizer implements Function {
 			vector.setQuick(indexes.get(i), dbls.getQuick(i) / norm);
 		}
 		return vector;
-	}
-
-	private Values getValues(Tweet tweet, String[] words, Long d, Long df[],
-			Long pos[]) {
-		// DEBUG
-		if (words.length != pos.length) {
-			System.err.println("words(" + words.length + "):");
-			for (int i = 0; i < words.length; ++i) {
-				System.err.println(i + " " + words[i]);
-			}
-
-			System.err.println("pos(" + pos.length + "):");
-			for (int i = 0; i < pos.length; ++i) {
-				System.err.println(i + " " + pos[i]);
-			}
-		}
-		Map<String, Long> tf = new HashMap<String, Long>();
-		for (String word : words) {
-			Long cnt = tf.get(word);
-			if (cnt == null) {
-				tf.put(word, (long) 1);
-			} else {
-				tf.put(word, cnt + 1);
-			}
-		}
-
-		int uniqWordsIncrease = 0;
-		int size = 0;
-
-		for (int i = 0; i < pos.length; ++i) {
-			if (pos[i] < 0) {
-				uniqWordsIncrease++;
-				pos[i] = -pos[i];
-			}
-			if (pos[i] > size) {
-				size = pos[i].intValue();
-			}
-		}
-
-		Set<String> processed = new HashSet<String>();
-		SparseVector vector = new SparseVector(size + 1);
-
-		for (int i = 0; i < words.length; ++i) {
-			String word = words[i];
-			if (processed.contains(word)) {
-				continue;
-			}
-			processed.add(word);
-			vector.set(pos[i].intValue(), tf.get(word) * Math.log10(d)
-					/ (df[i] + 1));
-		}
-
-		vector.trimToSize(); // very precious line, saves in performance
-
-		vector = normalizeVector(vector);
-		vector.trimToSize();
-
-		// idfs have been updated when constructing the vector
-		tweet.setSparseVector(vector);
-		return (new Values(tweet, uniqWordsIncrease));
 	}
 
 	@Override

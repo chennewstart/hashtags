@@ -17,6 +17,7 @@ public class ExpandList extends BaseFunction {
 
 	@Override
 	public void execute(TridentTuple tuple, TridentCollector collector) {
+		System.err.println("[Debug]ExpandList" + tuple.getValue(0));
 		@SuppressWarnings("rawtypes")
 		List<Tweet> tweets = (List<Tweet>) tuple.getValue(0);
 		if (tweets != null) {
@@ -25,5 +26,4 @@ public class ExpandList extends BaseFunction {
 			}
 		}
 	}
-
 }

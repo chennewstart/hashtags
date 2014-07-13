@@ -39,7 +39,7 @@ public class BucketsStateQuery extends
 	public void execute(TridentTuple tuple, ArrayList<Tweet> collidingTweets,
 			TridentCollector collector) {
 		Tweet tw = (Tweet) tuple.getValue(0);
-		collector.emit(new Values(tw.getID(), collidingTweets));
+		collector.emit(new Values(collidingTweets));
 	}
 
 }

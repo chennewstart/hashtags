@@ -71,7 +71,7 @@ public class Tweet implements Serializable {
 		result.append(ID + SEPARATOR);
 		result.append(text + SEPARATOR);
 		result.append(hashtags + SEPARATOR);
-		// result.append(vector);
+		result.append(vector);
 		result.append("}");
 
 		return result.toString();

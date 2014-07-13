@@ -56,27 +56,30 @@ public class HashtagTopology {
 
 	public static StormTopology buildTopology(LocalDRPC drpc) {
 
-		// TweetSpout spout = new TweetSpout(ProjectConf.maxBatchSize);
 		RedisSpout spout = new RedisSpout();
 		TridentTopology topology = new TridentTopology();
 
 		TridentState bucketsDB = topology
 				.newStaticState(new BucketsStateFactory());
-		topology.newStream("spout1", spout)
-				// .parallelismHint(ProjectConf.BucketsParallelism)
+
+		Stream stream = topology
+				.newStream("spout1", spout)
+				.parallelismHint(12)
+				.shuffle()
+				// .each(new Fields("tweet_id", "text", "hashtags"), new
+				// Debug());
 				.each(new Fields("text"), new Preprocessor(),
 						new Fields("cleantext"))
-				// .parallelismHint(ProjectConf.BucketsParallelism)
+				.parallelismHint(12)
+				// .project(new Fields("tweet_id", "text", "hashtags"))
 				.each(new Fields("cleantext"), new Tokenizer(),
 						new Fields("words"))
-				// .parallelismHint(ProjectConf.BucketsParallelism)
+				.parallelismHint(12)
 				.each(new Fields("tweet_id", "text", "words", "hashtags"),
 						new Vectorizer(), new Fields("tweet_obj"))
-				// .parallelismHint(ProjectConf.BucketsParallelism)
+				.parallelismHint(12)
 				.project(new Fields("tweet_obj"))
-				// .parallelismHint(ProjectConf.BucketsParallelism)
 				// .each(new Fields("tweet_obj"), new Debug())
-				.broadcast()
 				.stateQuery(bucketsDB, new Fields("tweet_obj"),
 						new BucketsStateUpdate(),
 						new Fields("tweet_id", "collidingTweetsList"))
@@ -85,8 +88,7 @@ public class HashtagTopology {
 						new Debug());
 
 		topology.newDRPCStream("tweets", drpc)
-				// .parallelismHint(1)
-				// .shuffle()
+//				.parallelismHint(12)
 				.each(new Fields("args"), new Preprocessor(),
 						new Fields("text"))
 				.each(new Fields("text"), new FakeID(), new Fields("tweet_id"))
@@ -94,15 +96,13 @@ public class HashtagTopology {
 				.each(new Fields("text"), new Tokenizer(), new Fields("words"))
 				.each(new Fields("tweet_id", "text", "words"),
 						new Vectorizer(), new Fields("tweet_obj"))
-				.project(new Fields("tweet_obj"))
+				.project(new Fields("tweet_obj", "tweet_id"))
 				// .each(new Fields("tweet_obj"), new Debug())
 				.broadcast()
 				.stateQuery(bucketsDB, new Fields("tweet_obj"),
 						new BucketsStateQuery(),
-						new Fields("tweet_id", "collidingTweetsList"))
+						new Fields("collidingTweetsList"))
 				.parallelismHint(ProjectConf.BucketsParallelism)
-				// .each(new Fields("tweet_id", "collidingTweetsList"), new
-				// Debug())
 				.each(new Fields("collidingTweetsList"), new ExpandList(),
 						new Fields("coltweet_obj", "coltweet_id"))
 				.project(
@@ -128,7 +128,7 @@ public class HashtagTopology {
 				// Debug());
 				.shuffle()
 				.groupBy(new Fields("tweet_id"))
-				// find ranked closest neighbors
+				// find ranked closest neighbor
 				.aggregate(
 						new Fields("coltweet_id", "tweet_obj", "coltweet_obj",
 								"cosSim"),
@@ -139,36 +139,36 @@ public class HashtagTopology {
 				.each(new Fields("coltweet_obj"), new Extractor(),
 						new Fields("tweet_text", "tweet_hashtags"))
 				.project(new Fields("tweet_text", "tweet_hashtags", "cosSim"));
-
 		return topology.build();
 	}
 
 	public static void main(String[] args) throws Exception {
 
+		Config conf = new Config();
+		List<String> servers = new ArrayList<String>();
+		servers.add("ec2-54-215-207-12.us-west-1.compute.amazonaws.com");
+		servers.add("ec2-54-215-220-17.us-west-1.compute.amazonaws.com");
+		servers.add("ec2-54-215-220-27.us-west-1.compute.amazonaws.com");
+		servers.add("ec2-54-215-203-118.us-west-1.compute.amazonaws.com");
+		servers.add("ec2-54-183-80-147.us-west-1.compute.amazonaws.com");
+		servers.add("ec2-54-215-175-197.us-west-1.compute.amazonaws.com");
+//		servers.add("localhost");
+		conf.put("drpc.servers", servers);
+		conf.setNumWorkers(12);
+
+		StormSubmitter.submitTopology("tweets", conf, buildTopology(null));
+
+//		Config conf = new Config();
+//		conf.setMaxSpoutPending(200);
 //		if (args.length == 0) {
-//			Config conf = new Config();
-//			conf.setMaxSpoutPending(200);
-//			if (args.length == 0) {
-//				LocalDRPC drpc = new LocalDRPC();
-//				LocalCluster cluster = new LocalCluster();
-//				cluster.submitTopology("hashtags", conf, buildTopology(drpc));
-//				for (int i = 0; i < 1000; i++) {
-//					Thread.sleep(100);
-//					System.out.println("DRPC RESULT: "
-//							+ drpc.execute("tweets", "Stick to the plan OPM"));
-//				}
+//			LocalDRPC drpc = new LocalDRPC();
+//			LocalCluster cluster = new LocalCluster();
+//			cluster.submitTopology("hashtags", conf, buildTopology(drpc));
+//			for (int i = 0; i < 1000; i++) {
+//				Thread.sleep(10);
+//				System.out.println("DRPC RESULT: " + i
+//						+ drpc.execute("tweets", "Stick to the plan OPM"));
 //			}
-//		} else {
-			Config conf = new Config();
-			List<String> servers = new ArrayList<String>();
-			servers.add("ec2-54-215-207-12.us-west-1.compute.amazonaws.com");
-			servers.add("ec2-54-215-220-17.us-west-1.compute.amazonaws.com");
-			servers.add("ec2-54-215-220-27.us-west-1.compute.amazonaws.com");
-			servers.add("ec2-54-215-203-118.us-west-1.compute.amazonaws.com");
-			servers.add("ec2-54-183-80-147.us-west-1.compute.amazonaws.com");
-			servers.add("ec2-54-215-175-197.us-west-1.compute.amazonaws.com");
-			conf.put("drpc.servers", servers);
-			StormSubmitter.submitTopology("tweets", conf, buildTopology(null));
 //		}
 	}
 }

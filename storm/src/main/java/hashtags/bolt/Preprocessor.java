@@ -35,12 +35,9 @@ public class Preprocessor extends BaseFunction {
 	@Override
 	public void execute(TridentTuple tuple, TridentCollector collector) {
 		String tweetText = null;
-		try {
-			tweetText = tools.clean(tb.removeSpacesInBetween((String) tuple
-					.getValue(0)));
-		} catch (Exception e) {
-			LOG.error(e.toString());
-		}
+		
+		tweetText = tools.clean(tb.removeSpacesInBetween(tuple
+					.getString(0)));
 		collector.emit(new Values(tweetText));
 
 	}

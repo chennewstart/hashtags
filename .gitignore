@@ -10,3 +10,4 @@ servers.txt
 webapp/venv/*
 webapp/node_modules/*
 storm/target
+/target
