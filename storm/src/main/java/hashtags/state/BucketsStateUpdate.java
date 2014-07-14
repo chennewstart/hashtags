@@ -14,7 +14,7 @@ import storm.trident.tuple.TridentTuple;
  * neighbours that their hash collide with the tweet in question.
  * 
  * @author Michael Vogiatzis (michaelvogiatzis@gmail.com)
- * 
+ * Revised by Xiaohu Chen (chen.newstart@gmail.com)
  */
 public class BucketsStateUpdate extends
 		BaseQueryFunction<BucketsDB, ArrayList<Tweet>> {

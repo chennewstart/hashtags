@@ -28,9 +28,9 @@ public class BucketsDB implements State, Serializable {
 	Random r;
 
 	public BucketsDB(int partialL, int k, int queueSize) {
-		System.err.println("[Debug][BucketsDB]partialL: " + partialL);
-		System.err.println("[Debug][BucketsDB]k: " + k);
-		System.err.println("[Debug][BucketsDB]queueSize: " + queueSize);
+		// System.err.println("[Debug][BucketsDB]partialL: " + partialL);
+		// System.err.println("[Debug][BucketsDB]k: " + k);
+		// System.err.println("[Debug][BucketsDB]queueSize: " + queueSize);
 
 		this.partialL = partialL;
 		this.k = k;

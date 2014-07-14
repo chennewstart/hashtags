@@ -16,7 +16,7 @@ import storm.trident.tuple.TridentTuple;
 /**
  * 
  * @author Michael Vogiatzis (michaelvogiatzis@gmail.com)
- *
+ * Revised by Xiaohu Chen (chen.newstart@gmail.com)
  */
 public class Tokenizer implements Function {
 	private final String regex = "[^A-Za-z0-9_£$%<>]";

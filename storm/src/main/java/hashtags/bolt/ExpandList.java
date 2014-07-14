@@ -9,7 +9,8 @@ import backtype.storm.tuple.Values;
 import hashtags.utils.Tweet;
 
 /**
- * 
+ * Expand a list of tweets and emit tweet one by one 
+ *
  * @author Michael Vogiatzis (michaelvogiatzis@gmail.com)
  *
  */
@@ -17,7 +18,7 @@ public class ExpandList extends BaseFunction {
 
 	@Override
 	public void execute(TridentTuple tuple, TridentCollector collector) {
-		System.err.println("[Debug]ExpandList" + tuple.getValue(0));
+		// System.err.println("[Debug]ExpandList" + tuple.getValue(0));
 		@SuppressWarnings("rawtypes")
 		List<Tweet> tweets = (List<Tweet>) tuple.getValue(0);
 		if (tweets != null) {
