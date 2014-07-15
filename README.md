@@ -31,6 +31,10 @@ Worth noting that Storm now uses Netty as messaging backend instead of ZeroMQ, t
 ##Demo
 ![alt text](image/demo.png "API response for one tweet text")
 
+##The "naive" approach
+![alt text](image/solr.png "using Pig(clean) + Solr(more like this)")
+![alt text](image/demo-solr.png "demo using a recent tweet")
+
 ##Credits
 The Location Sensitive Hashing (LSH) approach is directly influenced by [Michael Vogiatzis's work in first story detection](http://micvog.com/2013/09/08/storm-first-story-detection/) which again goes to various research in this field and most notably [this one](http://dl.acm.org/citation.cfm?id=1858020). All the referenced code are attributed with author.
 

@@ -20,6 +20,16 @@ curl 'http://54.187.124.137:8983/solr/update/json?commit=true' --data-binary @bo
 
 http://54.187.124.137:8983/solr/mlt?stream.body=i%20love%20you&mlt.fl=tweet&mlt.interestingTerms=list&mlt.mintf=0&mlt.mindf=0&fl=*,score
 
+sed -i '1s/^/[/' part-r-000*
+sed -i '$s/$/]/' part-r-000*
+sed -i s/tweets::tweet_id/id/g part-r-000*
+sed -i s/}/},/g part-r-000*
+sed -i s/},]/}]/g part-r-000*
+
+for f in part-r-000*; do curl 'http://54.187.124.137:8983/solr/update/json?commit=true' --data-binary @$f -H 'Content-type:application/json'; done
+
+sed s/tweets::tweet_id/id/ <../pig/tweets.json/part-r-00000 >tweets.json
+
 #TODO
 
 add pig preprocess and output json with one more area ("text" vs "tweet")

@@ -120,11 +120,11 @@
 		 required, it is highly recommended. A <uniqueKey> is present in almost all Solr 
 		 installations. See the <uniqueKey> declaration below where <uniqueKey> is set to "id".
 	 -->
-	 
 	 <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false" /> 
 	 <field name="hashtags" type="string" indexed="false" stored="true" required="true" multiValued="false" />
 	 <field name="tweet" type="text_en_splitting_tight" indexed="true" stored="true" required="true" multiValued="false" termVectors="true"/>
-	 
+	 <field name="oldtext" type="string" indexed="false" stored="true" required="true" multiValued="false" />
+
 	 <field name="sku" type="text_en_splitting_tight" indexed="true" stored="true" omitNorms="true"/>
 	 <field name="name" type="text_general" indexed="true" stored="true"/>
 	 <field name="manu" type="text_general" indexed="true" stored="true" omitNorms="true"/>

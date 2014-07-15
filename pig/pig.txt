@@ -7,3 +7,11 @@ scp -i insightdatastax.pem tf-idf.pig ubuntu@ec2-54-187-166-118.us-west-2.comput
 wget http://apache.claz.org/cassandra/2.0.9/apache-cassandra-2.0.9-src.tar.gz
 tar apache-cassandra-2.0.9-src.tar.gz
 cd apache-cassandra-2.0.9-src
+
+
+# clean tweets
+pig -Dpig.additional.jars=lib/jyson-1.0.2.jar -x local tweet.pig
+
+real	47m21.943s
+user	3m21.981s
+sys	0m37.627s
