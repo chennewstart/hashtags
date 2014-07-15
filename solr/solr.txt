@@ -1,0 +1,25 @@
+ssh -i insightdatastax.pem ubuntu@54.187.124.137
+
+schema.xml:
+/home/ubuntu/xiaohu/solr-4.9.0/example/solr/collection1/conf/schema.xml
+<field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false" /> 
+<field name="hashtags" type="string" indexed="false" stored="true" required="true" multiValued="false" />
+<field name="tweet" type="text_en_splitting_tight" indexed="true" stored="true" required="true" multiValued="false" termVectors="true"/>
+
+solrconfig.xml:
+/home/ubuntu/xiaohu/solr-4.9.0/example/solr/collection1/conf/schemaconfig.xml
+<requestHandler name="/mlt" class="solr.MoreLikeThisHandler">
+		<lst name="defaults">
+			 <str name="echoParams">explicit</str>
+			 <int name="rows">10</int>
+			 <str name="df">tweet</str>
+		 </lst>
+</requestHandler>>
+
+curl 'http://54.187.124.137:8983/solr/update/json?commit=true' --data-binary @books.json -H 'Content-type:application/json'
+
+http://54.187.124.137:8983/solr/mlt?stream.body=i%20love%20you&mlt.fl=tweet&mlt.interestingTerms=list&mlt.mintf=0&mlt.mindf=0&fl=*,score
+
+#TODO
+
+add pig preprocess and output json with one more area ("text" vs "tweet")
