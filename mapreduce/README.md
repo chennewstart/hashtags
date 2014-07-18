@@ -36,8 +36,8 @@ Mapper will pass the connectivity information and broadcast new minina if the ve
 During each iteration, reducer will will write to a directory that mapper in the next iteration will be expected to read from according to current iteration level. The initial input path is hardcoded as 'xiaohu/graph/depth_0/'. To run the program, put the connectivity file in the format like 'graph.txt' under this directory in hdfs, then compile the program to a jar and use `Hadoop jar` command.
 
 ##File description
-*`UserIdentifierNormalization.java`: Main function, contains the job configuation.
-*`ExplorationMapper.java`          : Mapper class.
-*`ExplorationReducer.java`         : Reducer class.
-*`VertexWritable.java`			   : Value class that represents a vertex and a message at the same time.
-*`graph.txt`					   : Sample input.
+* `UserIdentifierNormalization.java`: Main function, contains the job configuation.
+* `ExplorationMapper.java`          : Mapper class.
+* `ExplorationReducer.java`         : Reducer class.
+* `VertexWritable.java`			    : Value class that represents a vertex and a message at the same time.
+* `graph.txt`					    : Sample input.
