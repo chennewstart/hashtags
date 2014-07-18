@@ -36,7 +36,11 @@ During each iteration, reducer will will write to a directory that mapper in the
 
 ##File description
 'UserIdentifierNormalization.java': Main function, contains the job configuation.
+
 'ExplorationMapper.java'          : Mapper class.
+
 'ExplorationReducer.java'         : Reducer class.
+
 'VertexWritable.java'			  : Value class that represents a vertex and a message at the same time.
+
 'graph.txt'						  : Sample input.
