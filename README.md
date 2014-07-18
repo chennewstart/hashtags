@@ -60,7 +60,7 @@ About [Location Sensitive Hashing](http://en.wikipedia.org/wiki/Locality-sensiti
 
 Location Sensitive Hashing preserves similarity between vectors while hashing them into different buckets. Various methods have been proposed. See the wikipedia link for a list of methods. The approach here is called `Random Projection`. The basic idea is to think of vectors as points in high dimensional space and the probability that any two points can be in the same side for a given random hyperplane. The probability is a proximation with the cosine similarity between these two vectors.
 
-
+See [here](mapreduce) for a description of the implementation of Graph Exploration using Hadoop MapReduce Java API.
 
 
 
