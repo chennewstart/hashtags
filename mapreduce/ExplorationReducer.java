@@ -23,6 +23,13 @@ import org.apache.hadoop.util.ToolRunner;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Writable;
 
+/**
+* Reducer class, update the new global minina for a vertex if necessary.
+* input : key is vertexid, values is the vertexes that this vertex points to or a local minima
+* output: key is vertexid, value has 3 fields: the vertexes that this vertex points to, current global minima 
+*         and wether it is updated in this iteration
+*/
+
 public class ExplorationReducer extends
 			Reducer<LongWritable, VertexWritable, LongWritable, Text> {
 
@@ -65,6 +72,8 @@ public class ExplorationReducer extends
 			System.err.println("[minimalVertexId]" + minimalVertexId);
 			boolean activated = false;
 			assert(vertex != null);
+
+			// if we found a new minimum activate the vertex and update the counter
 			if(minimalVertexId != null && minimalVertexId < vertex.minimalVertexId)
 			{
 				vertex.minimalVertexId = minimalVertexId;
@@ -74,6 +83,8 @@ public class ExplorationReducer extends
 			{
 				context.getCounter(UpdateCounter.UPDATED).increment(1);
 			}
+			
+			// 3 fields: the vertexes that this vertex points to, current global minima and wether it is updated in this iteration
 			StringBuilder sb = new StringBuilder();
 			Iterator<Long> adjs = vertex.pointsTo.iterator();
 			while (adjs.hasNext())

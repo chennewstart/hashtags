@@ -23,6 +23,14 @@ import org.apache.hadoop.util.ToolRunner;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Writable;
 
+/**
+* Main function
+* The algorithm uses a technique called 'message passing' to pass message of 'local minina' 
+* in order to find the global minina for each vertex. The connectivity information is preserved between iterations. 
+* Also, if a vertex's minina is updated, all of its neibouring vertexes will receive a message of the new minina. 
+* 'Counter' is used here to control when to stop the iteration, that is, when no vertex's minina is updated. 
+*/
+
 // JDK API docs : http://docs.oracle.com/javase/7/docs/api/
 // Hadoop API docs : http://hadoop.apache.org/docs/stable/api/
 
@@ -35,11 +43,6 @@ public class UserIdentifierNormalization extends Configured implements Tool {
 
 	@Override
 	public int run(String[] args) throws Exception {
-
-		// if (args.length != 2) {
-		// 	System.out.println("usage : need <input path>  <output path>");
-		// 	return 1;
-		// }
 
 		// variable to keep track of the recursion depth
 		int depth = 0;

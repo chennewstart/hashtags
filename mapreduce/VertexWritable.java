@@ -23,11 +23,19 @@ import org.apache.hadoop.util.ToolRunner;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Writable;
 
+/**
+* Value class that represents a vertex (pass the graph structer information) and a message (pass the local minima message) at the same time
+* if it represents a vertex, then it has 'pointsTo' field which is the vertexes that this vertex points to
+* othewise, 'pointsTo' is null.
+*
+*/
+
 public class VertexWritable implements Writable, Cloneable {
 	Long minimalVertexId = null;
 	TreeSet<Long> pointsTo = null;
 	// boolean activated;
 
+	// return whether it represents a message or not
 	public boolean isMessage() 
 	{
 		if (pointsTo == null)
@@ -36,6 +44,7 @@ public class VertexWritable implements Writable, Cloneable {
 			return false;
 	}
 
+	// implements Writable interface
 	public void write(DataOutput out) throws IOException {
 		out.writeLong(minimalVertexId);
 		if (pointsTo != null)
@@ -53,6 +62,7 @@ public class VertexWritable implements Writable, Cloneable {
 		}
 	}
 
+	// implements Writable interface
 	public void readFields(DataInput in) throws IOException {
 		minimalVertexId = in.readLong();
 		int size = in.readInt();
@@ -70,6 +80,7 @@ public class VertexWritable implements Writable, Cloneable {
 		}
 	}
 
+	// for debug purpose
 	@Override public String toString() {
 		StringBuilder result = new StringBuilder();
 		if (pointsTo == null)

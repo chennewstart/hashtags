@@ -23,6 +23,14 @@ import org.apache.hadoop.util.ToolRunner;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Writable;
 
+/**
+* Mapper class, pass the connectivity information and broadcast new minina if the vertex is activated (found new global minina).
+* input : key is line number (or offset, unused); 
+*         Depends on whether it is the first iteration, value can either be a vertex and all the vertexes that it points to (first iteration)
+*         or the vertex, all the vertexes that it points to as well as wehter it's global minima is updated
+* output: key is the vertexId, value is the vertexes that it points to or local minima
+*/
+
 public class ExplorationMapper extends Mapper<Object, Text, LongWritable, VertexWritable> {
 		
 		private Text word = new Text();
@@ -95,6 +103,9 @@ public class ExplorationMapper extends Mapper<Object, Text, LongWritable, Vertex
 					vertex.pointsTo = pointsTo;
 					System.err.println("[context.write]key " + vertexId.toString() + " value " + vertex);
 					context.write(new LongWritable(vertexId), vertex);
+					
+					// If a vertex is activated, loop through the pointsTo tree and write a message with 
+					// the minimal vertex to every element of the tree
 					if(activated)
 					{
 						System.err.println("[activated!!]");
