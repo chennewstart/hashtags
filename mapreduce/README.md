@@ -2,6 +2,8 @@
 
 The Graph Exploration problem here refers to find the graph components (connected vertexes) in an undirected graph. The implementation here only uses Hadoop MapReduce Java API. You can see a more detailed description of the program and algorithm from [this link](http://codingwiththomas.blogspot.com/2011/04/graph-exploration-with-hadoop-mapreduce.html).
 
+An application of this algorithm is to identify different accounts (or ip addresses) that belong to the same user. That's why the main java file is called `UserIdentifierNormalization.java`. You can refers to Nathan Marz's [new book](http://www.manning.com/marz/) for this particular application.
+
 ##Input and Output
 Each vertex in the graph is denoted by an unique integer. The input is a text file in which each line represents a part of a component. The algorithm will assign all vertexes in a component the same id which is the vertexid of one of the vertex in that component.
 
