@@ -13,3 +13,4 @@ storm/target
 target/*
 *.tar.gz
 *.txt
+.DS_Store
