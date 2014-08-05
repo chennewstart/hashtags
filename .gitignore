@@ -12,3 +12,4 @@ webapp/node_modules/*
 storm/target
 target/*
 *.tar.gz
+*.txt
